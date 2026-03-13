@@ -1,5 +1,8 @@
 # AWS S3 Upload Monitoring with Lambda and CloudWatch
 
+## Architecture
+![alt text](Architecture.png)
+
 ## Project Overview
 
 This project demonstrates an **event‑driven AWS automation pipeline**
