@@ -29,7 +29,7 @@
    spec:
      containers:
        - name: nginx-container
-         image: nginx:latest
+         image: nginx:1.14.2
    ```
 
 2. **Nginx Service Manifest in "nginx" Namespace:**
