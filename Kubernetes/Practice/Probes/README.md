@@ -77,7 +77,8 @@ Each probe can be configured using one of three handlers:
    - Kubelet restarts the container.
    - Restart count increments, and normal startup repeats.
 
-5. **Probe recovery**\n   - When probes start passing again, readiness returns and the pod is eligible for traffic.
+5. **Probe recovery**
+    - When probes start passing again, readiness returns and the pod is eligible for traffic.
 
 ---
 
@@ -111,7 +112,7 @@ Each probe can be configured using one of three handlers:
 ## 🧪 Quick validation (example commands)
 
 
-```bash
+```yml
 kubectl describe pod <pod-name>
 
 kubectl get pod <pod-name> -o jsonpath='{.status.containerStatuses[0].state}'
