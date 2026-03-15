@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-taint-toleration
+  labels:
+    app: example
+spec:
+  containers:
+  - name: app
+    image: nginx:stable
+    ports:
+    - containerPort: 80
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "database"
+    effect: "NoSchedule"
+
+  # This toleration allows the pod to stay on a node that has an upgrade=planned:NoExecute taint.
+  # It should only be used when you explicitly want to prevent eviction during an upgrade.
+  - key: "upgrade"
+    operator: "Equal"
+    value: "planned"
+    effect: "NoExecute"
+    tolerationSeconds: 3600 # the pod will tolerate the NoExecute taint for 1 hour (3600 seconds) before it becomes evictable
+
+  # This toleration matches maintenance=true:PreferNoSchedule,
+  # allowing the pod to be scheduled if no better nodes are available.
+  - key: "maintenance"
+    operator: "Equal"
+    value: "true"
+    effect: "PreferNoSchedule"
