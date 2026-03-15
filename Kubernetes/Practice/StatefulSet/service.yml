@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  ports:
+  - port: 80
+    targetPort: 80  # Can be defined in StatefulSet as well.
+    protocol: TCP
+    name: web
+  clusterIP: None # headless service
+  selector:
+    app: nginx

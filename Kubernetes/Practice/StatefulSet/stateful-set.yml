@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: webapp
+  namespace: webapp-namespace
+  labels: 
+    app: nginx
+spec:
+  revisionHistoryLimit: 5  # Keep last 5 revisions
+  selector:
+    matchLabels:
+      app: nginx # has to match .spec.template.metadata.labels
+  serviceName: "nginx"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: nginx # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80 # Can be defined in Service as well.
+          name: web
+        volumeMounts:
+        - name: my-volume
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: my-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
