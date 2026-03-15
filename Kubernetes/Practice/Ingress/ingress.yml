@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apache-nginx-ingress
+  # It runs in it's own namespace(best practice), so that it can be used cluster wide
+  # expose the ingress controller to the outside world, so that it can route traffic to the services in the cluster
+# namespace: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+# - host: "so.com"
+    http:
+      paths:
+      - path: /apache
+        pathType: Prefix
+        backend:
+          service:
+            name: apache-service
+            port:
+              number: 80
+      - path: /nginx
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
