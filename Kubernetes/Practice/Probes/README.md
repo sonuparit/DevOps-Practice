@@ -110,6 +110,7 @@ Each probe can be configured using one of three handlers:
 
 ## 🧪 Quick validation (example commands)
 
+
 ```bash
 kubectl describe pod <pod-name>
 
