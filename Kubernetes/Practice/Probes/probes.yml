@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: app-container
+        image: my-app:v1.0
+        ports:
+        - containerPort: 8080
+
+        # 1. STARTUP PROBE: The "Bodyguard"
+        # It gives the app 60 seconds (12 * 5s) to finish booting up.
+        # Liveness and Readiness probes are DISABLED until this succeeds.
+        startupProbe:
+          httpGet:
+            path: /health/startup
+            port: 8080
+          failureThreshold: 12
+          periodSeconds: 5
+
+        # 2. READINESS PROBE: The "Traffic Cop"
+        # Once startup finishes, this runs every 10s forever.
+        # If the DB goes down, this fails and traffic stops being sent here.
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 8080
+          initialDelaySeconds: 5 # Small delay after startup finishes
+          periodSeconds: 10
+          successThreshold: 1    # Must pass once to be "Ready"
+          failureThreshold: 3    # If it fails 3x, pull from Load Balancer
+
+        # 3. LIVENESS PROBE: The "Heartbeat"
+        # Once startup finishes, this runs every 20s forever.
+        # If the app deadlocks or freezes, this triggers a RESTART.
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          failureThreshold: 3    # If it fails 3x, RESTART the container
