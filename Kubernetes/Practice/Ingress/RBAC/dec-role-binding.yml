@@ -1,0 +1,30 @@
+# 1. BINDING TO A HUMAN (User)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: human-access
+  namespace: nginx
+subjects:
+- kind: User
+  name: "alice@example.com" # The human's ID
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-reader # The "Security Badge"
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+# 2. BINDING TO A BOT (ServiceAccount)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bot-access
+  namespace: nginx
+subjects:
+- kind: ServiceAccount
+  name: monitor-bot # The bot's ID
+roleRef:
+  kind: Role
+  name: pod-reader # The same "Security Badge"
+  apiGroup: rbac.authorization.k8s.io

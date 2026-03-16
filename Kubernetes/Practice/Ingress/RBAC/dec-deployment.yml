@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storage-app
+  template:
+    metadata:
+      labels:
+        app: storage-app
+    spec:
+      # Reference the ServiceAccount
+      serviceAccountName: s3-reader-sa
+      containers:
+      - name: app
+        image: amazon/aws-cli:latest
+        command: ["sleep", "3600"]  # Keep the container running for testing purposes
+        # No authentication details are needed here as the ServiceAccount will handle permissions
