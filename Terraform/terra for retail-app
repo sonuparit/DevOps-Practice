@@ -1,0 +1,43 @@
+For terraform:
+
+1. DynamoDB Resource (aws_dynamodb_table)
+You'll need to define the table with the specific GSI the app expects.
+
+Partition Key: id (String)
+
+GSI Name: idx_global_customerId
+
+GSI Partition Key: customerId (String)
+
+Billing Mode: PAY_PER_REQUEST (Serverless/On-demand is best for labs).
+
+2. IAM User & Policy (aws_iam_user & aws_iam_policy)
+You’ll need to automate the creation of that user and the policy we discussed.
+
+Important: Use aws_iam_access_key to generate the credentials.
+
+Output: You’ll want Terraform to output the access_key_id and secret_access_key (mark the secret as sensitive = true).
+
+3. Kubernetes Secret (kubernetes_secret)
+Instead of a secret.yml file, you can use the Terraform Kubernetes Provider to inject the keys directly from the IAM output into your cluster.
+
+Why: This removes the need for echo -n | base64 manually. Terraform handles the encoding for you.
+
+4. Kubernetes Namespace & Deployment (kubernetes_manifest or helm_release)
+Namespace: retail-app
+
+Environment Variables: Map the AWS_REGION and RETAIL_CART_PERSISTENCE_DYNAMODB_TABLE_NAME to the outputs of your DynamoDB resource.
+
+Summary of Manual "Discoveries" to Remember:
+Table Name: Must be exactly Items (or updated in the Env Var).
+
+Endpoint: Keep it blank ("") so the SDK uses the regional default.
+
+Liveness Probe: Use httpGet on port 8080 (path /actuator/health) rather than the curl exec probe, as it's more reliable in restricted security contexts.
+
+Resources: Give the Java pod at least 512Mi of memory to prevent OOM (Out Of Memory) crashes.
+
+Volume Mounts: Don't forget the emptyDir mount on /tmp because the readOnlyRootFilesystem: true setting will otherwise block Tomcat from starting.
+
+One Terraform Tip for Kind/EC2:
+If you are running Terraform from your laptop to manage the Kind cluster on EC2, make sure your kubeconfig on your laptop is updated to point to the EC2's Public IP, or run Terraform directly on the EC2 instance.
