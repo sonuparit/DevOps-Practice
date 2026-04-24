@@ -7,7 +7,15 @@ This repository is a **personal DevOps practice lab** where I continuously build
 
 Each project in this repository focuses on solving a specific problem or implementing a real-world DevOps concept.
 
----
+## 📑 Table of Contents
+
+- **[Purpose](#-purpose)**
+- **[What You Will Find in This Repository](#-what-you-will-find-in-this-repository)**
+- **[DevOps Tools & Technologies Practiced](#️-devops-tools--technologies-practiced)**
+- **[Example Projects](#-example-projects)**
+- **[Learning Philosophy](#-learning-philosophy)**
+- **[Continuous Learning](#-continuous-learning)**
+- **[Author](#-author)**
 
 ## 🎯 Purpose
 
@@ -23,23 +31,19 @@ Modern DevOps engineers are expected to understand multiple areas of the softwar
 
 This repository is designed to **practice and implement these skills through real practice**.
 
----
-
 ## 🧠 What You Will Find in This Repository
 
 Inside this repository you will find multiple DevOps experiments and mini-projects such as:
 
-• CI/CD pipeline implementations  
-• Infrastructure automation projects  
-• Kubernetes deployments  
-• Cloud automation scripts  
-• Monitoring and logging setups  
-• Containerized applications  
-• DevOps workflow simulations  
+- CI/CD pipeline implementations  
+- Infrastructure automation projects  
+- Kubernetes deployments  
+- Cloud automation scripts  
+- Monitoring and logging setups  
+- Containerized applications  
+- DevOps workflow simulations  
 
 Each sub repo demonstrates **practical usage of DevOps tools and practices**.
-
----
 
 ## ⚙️ DevOps Tools & Technologies Practiced
 
@@ -82,8 +86,6 @@ This repository includes practice using technologies commonly used in modern Dev
 - GitHub workflows
 - Branching strategies
 
----
-
 ## 🏗 Example Projects
 
 Some example types of projects you may find in this repository:
@@ -98,8 +100,6 @@ Some example types of projects you may find in this repository:
 - terracform practice
 - and son on.....
 
----
-
 ## 📈 Learning Philosophy
 
 This repository follows a **learn-by-building approach**.
@@ -110,8 +110,6 @@ Instead of only reading documentation, I focus on:
 • Understanding real infrastructure flows  
 • Experimenting with tools used in production environments
 
----
-
 ## 🚀 Continuous Learning
 
 DevOps is an evolving field, and this repository will continue growing as I explore:
@@ -121,8 +119,6 @@ DevOps is an evolving field, and this repository will continue growing as I expl
 - CI/CD optimizations
 - Security automation
 - Platform engineering concepts
-
----
 
 # 👨‍💻 Author
 
